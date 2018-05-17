@@ -7,24 +7,36 @@ export default class Demo extends Component {
         super();
 
         this.state = {
-            move: false
+            move: false,
+            render: false
         }
     }
 
     render() {
         return (
             <Wrapper>
+                <button onClick={() => this.setState({ render: !this.state.render })}>Render the blue rectangle</button>
                 <TransitionMotion
-                    defaultStyles={[{
-                        key: 'test',
-                        style: { height: 0, width: 0 }
-                    }]}
-                    styles={[{
-                        key: 'test',
-                        style: { height: spring(100, { stiffness: 60, damping: 15 }), width: spring(100, { stiffness: 60, damping: 15 }) }
-                    }]}
+                    defaultStyles={
+                        this.state.render ?
+                        [{
+                            key: 'test',
+                            style: { height: 0, width: 0 }
+                        }]
+                        :
+                        []
+                    }
+                    styles={
+                        this.state.render ?
+                        [{
+                            key: 'test',
+                            style: { height: spring(100), width: spring(100) }
+                        }]
+                        :
+                        []
+                }
                     willEnter={() => ({ height: 0, width: 0 })}
-                    willLeave={() => ({ height: spring(100, { stiffness: 60, damping: 15 }), width: spring(100, { stiffness: 60, damping: 15 }) })}>
+                    willLeave={() => ({ height: spring(0), width: spring(0)})}>
                     {
                         styles =>
                             <div style={{ height: '100%', width: '100%', border: '1px solid pink' }} >
@@ -40,9 +52,12 @@ export default class Demo extends Component {
                     }
 
                 </TransitionMotion>
-                <Motion defaultStyle={{ left: 0 }} style={this.state.move ? { left: spring(200) } : { left: spring(0) }}>
+                <Motion defaultStyle={{ left: 0 }} style={this.state.move ? { left: spring(200, {stiffness: 60, damping: 15}) } : { left: spring(0, {stiffness: 60, damping: 15}) }}>
                     {
-                        style => <RedBox style={{ left: style.left }} />
+                        style => <RedBox style={{ left: style.left }}>
+                                    <p>{style.left}</p>
+                                </RedBox>
+
                     }
                 </Motion>
                 <button style={{ position: 'absolute' }} onClick={() => this.setState({ move: !this.state.move })}> Move the red box </button>
