@@ -7,6 +7,8 @@ import MenuX from './MenuX';
 import Create from './Create';
 import Slate from './Slate';
 import steve from './IMG_2640.JPG'
+import ImageAnimation from './ImageAnimation';
+import Demo from './Demo';
 
 
 class App extends Component {
@@ -35,7 +37,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Slate />
+        <Demo />
       </div>
     );
   }

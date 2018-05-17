@@ -42,20 +42,6 @@ const initialValue = Value.fromJSON({
                     },
                 ],
             },
-            {
-                object: 'block',
-                type: 'text',
-                nodes: [
-                    {
-                        object: 'text',
-                        leaves: [
-                            {
-                                text: '',
-                            },
-                        ],
-                    },
-                ],
-            }
         ],
     },
 })
